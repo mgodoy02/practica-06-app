@@ -1,1 +1,64 @@
-<p>form-user works!</p>
+<section class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <h2>{{ title() }}</h2>
+      <hr>
+
+      <form (submit)="guardar($event)" novalidate>
+        <div class="mb-3">
+          @let first_name = userForm.first_name;
+          <label class="form-label" for="first_name">Nombre Usuario</label>
+          <input type="text" id="first_name" class="form-control" placeholder="Introduzca nombre de usuario" [formField]="first_name">
+          @if (first_name().touched() && first_name().invalid()) {
+            <div class="text-danger small">
+              @for (error of first_name().errors(); track error) {
+                <div>{{ error.message }}</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          @let last_name = userForm.last_name;
+          <label class="form-label" for="last_name">Apellido Usuario</label>
+          <input type="text" id="last_name" class="form-control" placeholder="Introduzca apellido de usuario" [formField]="last_name">
+          @if (last_name().touched() && last_name().invalid()) {
+            <div class="text-danger small">
+              @for (error of last_name().errors(); track error) {
+                <div>{{ error.message }}</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          @let email = userForm.email;
+          <label class="form-label" for="email">Email Usuario</label>
+          <input type="text" id="email" class="form-control" placeholder="Introduzca email de usuario" [formField]="email">
+          @if (email().touched() && email().invalid()) {
+            <div class="text-danger small">
+              @for (error of email().errors(); track error) {
+                <div>{{ error.message }}</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          @let image = userForm.image;
+          <label class="form-label" for="image">Imagen Usuario</label>
+          <input type="text" id="image" class="form-control" placeholder="Introduzca url de foto usuario" [formField]="image">
+          @if (image().touched() && image().invalid()) {
+            <div class="text-danger small">
+              @for (error of image().errors(); track error) {
+                <div>{{ error.message }}</div>
+              }
+            </div>
+          }
+        </div>
+
+        <button type="submit" class="btn btn-dark">{{ title() === 'Nuevo usuario' ? 'Guardar' : 'Actualizar' }}</button>
+      </form>
+    </div>
+  </div>
+</section>

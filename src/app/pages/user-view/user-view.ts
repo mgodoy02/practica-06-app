@@ -40,7 +40,7 @@ export class UserView implements OnInit {
 
     try {
       const respuesta = await this.usersService.deleteById(this._id());
-      if (respuesta._id) {
+      if (respuesta._id || respuesta.id) {
         toast.success('Usuario borrado correctamente');
         this.router.navigate(['/home']);
       } else {

@@ -23,7 +23,7 @@ export class UserCard {
 
     try {
       const respuesta = await this.usersService.deleteById(_id);
-      if (respuesta._id) {
+      if (respuesta._id || respuesta.id) {
         toast.success('Usuario borrado correctamente');
         this.deleted.emit(_id);
       } else {
