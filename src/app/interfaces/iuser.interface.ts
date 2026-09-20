@@ -1,6 +1,6 @@
-export interface User {
-  _id: string;
-  id: number;
+export interface IUser {
+  _id?: string;
+  id?: number;
   first_name: string;
   last_name: string;
   username: string;
@@ -9,18 +9,10 @@ export interface User {
   password?: string;
 }
 
-export interface CreateUserRequest {
-  first_name: string;
-  last_name: string;
-  username: string;
-  email: string;
-  password: string;
-}
-
 export interface UsersResponse {
   page: number;
   per_page: number;
   total: number;
   total_pages: number;
-  results: User[];
+  results: IUser[];
 }
