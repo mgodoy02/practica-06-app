@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { Users } from '../../services/users';
 import { IUser } from '../../interfaces/iuser.interface';
 import { toast } from 'ngx-sonner';
+import Swal from 'sweetalert2';
 
 @Component({
   imports: [RouterLink],
@@ -35,20 +36,26 @@ export class UserView implements OnInit {
   }
 
   async onDelete() {
-    const confirmado = confirm('¿Seguro que quieres borrar este usuario?');
-    if (!confirmado) return;
+  const resultado = await Swal.fire({
+    title: `Deseas Borrar al usuario ${this.user()?.first_name}`,
+    showCancelButton: true,
+    confirmButtonText: 'Aceptar',
+    cancelButtonText: 'Cancelar',
+  });
 
-    try {
-      const respuesta = await this.usersService.deleteById(this._id());
-      if (respuesta._id || respuesta.id) {
-        toast.success('Usuario borrado correctamente');
-        this.router.navigate(['/home']);
-      } else {
-        toast.error('No se ha podido borrar el usuario');
-      }
-    } catch (error) {
-      toast.error('Ha ocurrido un error al borrar el usuario');
-      console.log(error);
+  if (!resultado.isConfirmed) return;
+
+  try {
+    const respuesta = await this.usersService.deleteById(this._id());
+    if (respuesta._id || respuesta.id) {
+      toast.success('Usuario borrado correctamente');
+      this.router.navigate(['/home']);
+    } else {
+      toast.error('No se ha podido borrar el usuario');
     }
+  } catch (error) {
+    toast.error('Ha ocurrido un error al borrar el usuario');
+    console.log(error);
   }
+}
 }
